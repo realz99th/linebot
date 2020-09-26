@@ -25,7 +25,7 @@
 	else if($message == "ตารางสอน"){
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
         $arrayPostData['messages'][0]['type'] = "text";
-        $arrayPostData['messages'][0]['text'] = "กรุณาพิมพ์เลขนิสิต";
+        $arrayPostData['messages'][0]['text'] = "กรุณาพิมพ์เลขนิสิต0000";
 		replyMsg($arrayHeader,$arrayPostData);
 		$stat = 1;
 		if($stat == 1 && $message != "ตารางสอน"){
