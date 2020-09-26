@@ -17,7 +17,7 @@
         $arrayPostData['messages'][0]['text'] = "สวัสดีจ้าาา";
         replyMsg($arrayHeader,$arrayPostData);
     }
-esle if($message == "ตารางสอน"){
+else if($message == "ตารางสอน"){
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
         $arrayPostData['messages'][0]['type'] = "text";
         $arrayPostData['messages'][0]['text'] = "กรุณาพิมพ์เลขนิสิต";
