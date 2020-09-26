@@ -11,17 +11,32 @@
     //รับข้อความจากผู้ใช้
     $message = $arrayJson['events'][0]['message']['text'];
 #ตัวอย่าง Message Type "Text"
-    if($message == "สวัสดี"){
+
+	$stat = 0;
+	while(TRUE){
+		
+		if($message == "สวัสดี"){
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
         $arrayPostData['messages'][0]['type'] = "text";
         $arrayPostData['messages'][0]['text'] = "สวัสดีจ้าาา";
         replyMsg($arrayHeader,$arrayPostData);
+		break;
     }
-else if($message == "ตารางสอน"){
+	else if($message == "ตารางสอน"){
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
-        $arrayPostData['messages'][0]['type'] = "postback";
+        $arrayPostData['messages'][0]['type'] = "text";
         $arrayPostData['messages'][0]['text'] = "กรุณาพิมพ์เลขนิสิต";
-        replyMsg($arrayHeader,$arrayPostData);
+		replyMsg($arrayHeader,$arrayPostData);
+		$stat = 1;
+		if($stat == 1){
+			$arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
+			$arrayPostData['messages'][0]['type'] = "text";
+			$arrayPostData['messages'][0]['text'] = "ตารางสอนของ".$message;
+			replyMsg($arrayHeader,$arrayPostData);
+			break;
+		}
+        
+		
     }
 
     #ตัวอย่าง Message Type "Sticker"
@@ -31,6 +46,7 @@ else if($message == "ตารางสอน"){
         $arrayPostData['messages'][0]['packageId'] = "2";
         $arrayPostData['messages'][0]['stickerId'] = "46";
         replyMsg($arrayHeader,$arrayPostData);
+		break;
     }
     #ตัวอย่าง Message Type "Image"
     else if($message == "รูปน้องแมว"){
@@ -40,6 +56,7 @@ else if($message == "ตารางสอน"){
         $arrayPostData['messages'][0]['originalContentUrl'] = $image_url;
         $arrayPostData['messages'][0]['previewImageUrl'] = $image_url;
         replyMsg($arrayHeader,$arrayPostData);
+		break;
     }
     #ตัวอย่าง Message Type "Location"
     else if($message == "พิกัดสยามพารากอน"){
@@ -50,6 +67,7 @@ else if($message == "ตารางสอน"){
         $arrayPostData['messages'][0]['latitude'] = "13.7465354";
         $arrayPostData['messages'][0]['longitude'] = "100.532752";
         replyMsg($arrayHeader,$arrayPostData);
+		break;
     }
     #ตัวอย่าง Message Type "Text + Sticker ใน 1 ครั้ง"
     else if($message == "ลาก่อน"){
@@ -60,7 +78,11 @@ else if($message == "ตารางสอน"){
         $arrayPostData['messages'][1]['packageId'] = "1";
         $arrayPostData['messages'][1]['stickerId'] = "131";
         replyMsg($arrayHeader,$arrayPostData);
+		break;
     }
+	
+	}
+    
 function replyMsg($arrayHeader,$arrayPostData){
         $strUrl = "https://api.line.me/v2/bot/message/reply";
         $ch = curl_init();
