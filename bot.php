@@ -21,10 +21,14 @@ if ( sizeof($request_array['events']) > 0 ) {
         $reply_token = $event['replyToken'];
 
         $text = $event['message']['text'];
+        
+        if($text == "ทดสอบ"){
+            $text_return = "ตอบกลับ ทดสอบ";
+        }
         $data = [
             'replyToken' => $reply_token,
-             'messages' => [['type' => 'text', 'text' => json_encode($request_array) ]]  //Debug Detail message
-            //'messages' => [['type' => 'text', 'text' => $text ]]
+             //'messages' => [['type' => 'text', 'text' => json_encode($request_array) ]]  //Debug Detail message
+            'messages' => [['type' => 'text', 'text' => $text_return ]]
         ];
         $post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
 
