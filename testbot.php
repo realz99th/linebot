@@ -9,12 +9,12 @@
     $arrayHeader[] = "Authorization: Bearer {$accessToken}";
     
     //รับข้อความจากผู้ใช้
-    $message = $arrayJson['events'][0]['message']['text'];
+    
 #ตัวอย่าง Message Type "Text"
 
 	$stat = 0;
 	while(TRUE){
-		
+		$message = $arrayJson['events'][0]['message']['text'];
 		if($message == "สวัสดี"){
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
         $arrayPostData['messages'][0]['type'] = "text";
@@ -25,14 +25,15 @@
 	else if($message == "ตารางสอน"){
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
         $arrayPostData['messages'][0]['type'] = "text";
-        $arrayPostData['messages'][0]['text'] = "กรุณาพิมพ์เลขนิสิต0000";
+        $arrayPostData['messages'][0]['text'] = "กรุณาพิมพ์เลขนิสิต111";
 		replyMsg($arrayHeader,$arrayPostData);
 		$stat = 1;
 		if($stat == 1 && $message != "ตารางสอน"){
 			$arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
 			$arrayPostData['messages'][0]['type'] = "text";
-			$arrayPostData['messages'][0]['text'] = "ตารางสอนของ".$message;
+			$arrayPostData['messages'][0]['text'] = "ตารางสอนของ";
 			replyMsg($arrayHeader,$arrayPostData);
+			$stat = 0;
 			break;
 		}
         
@@ -96,5 +97,5 @@ function replyMsg($arrayHeader,$arrayPostData){
         $result = curl_exec($ch);
         curl_close ($ch);
     }
-   exit;
+   //exit;
 ?>
