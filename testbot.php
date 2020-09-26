@@ -24,19 +24,29 @@
     }
 	else if($message == "ตารางสอน"){
         $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
+		
+		/*"quickReply": {
+    "items": [
+      {
+        "type": "action",
+        "imageUrl": "https://f.ptcdn.info/716/040/000/o3npyu1b2ovxUqEPxDb-o.jpg",
+        "action": {
+          "type": "message",
+          "label": "วันรับเงินเดือน",
+          "text": "วันรับเงินเดือน"
+        }
+      }
+	  */
+	  
         $arrayPostData['messages'][0]['type'] = "text";
         $arrayPostData['messages'][0]['text'] = "กรุณาพิมพ์เลขนิสิต111";
+		$arrayPostData['messages'][0]['quickReply']['items'][0]['type'] = "action";
+		$arrayPostData['messages'][0]['quickReply']['items'][0]['imageUrl'] = "https://f.ptcdn.info/716/040/000/o3npyu1b2ovxUqEPxDb-o.jpg";
+		$arrayPostData['messages'][0]['quickReply']['items'][0]['action']['label'] =  "วันรับเงินเดือน";
+		$arrayPostData['messages'][0]['quickReply']['items'][0]['action']['text'] =  "วันรับเงินเดือน";
+		
 		replyMsg($arrayHeader,$arrayPostData);
-		$stat = 1;
-		if($stat == 1 && $message != "ตารางสอน"){
-			$arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
-			$arrayPostData['messages'][0]['type'] = "text";
-			$arrayPostData['messages'][0]['text'] = "ตารางสอนของ";
-			replyMsg($arrayHeader,$arrayPostData);
-			$stat = 0;
-			break;
-		}
-        
+        break;
 		
     }
 
